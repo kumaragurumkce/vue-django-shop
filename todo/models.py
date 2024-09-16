@@ -2,9 +2,9 @@ from django.db import models
 from django.conf import settings
 # Create your models here.
 
+class Task(models.Model):
+    title = models.CharField(max_length=255)
+    completed = models.BooleanField(default=False)
 
-class Student(models.Model):
-    name = models.CharField(max_length=100)
-    course = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    gender = models.CharField(max_length=100)
+    def __str__(self):
+        return self.title

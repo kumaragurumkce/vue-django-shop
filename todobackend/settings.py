@@ -23,11 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-iz6^ux_0b5_b@=yoc1l26bv=2ll9f+9b+iyeaitzu%x$jgh%oz'
-SECRET_KEY=os.environ.get("SECRET_KEY")
+SECRET_KEY=os.environ.get("SECRET_KEY","e25ba577d9c04599896f6de530143883")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower() == "true"
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,17 +80,9 @@ WSGI_APPLICATION = 'todobackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR/ "db.sqlite3",
-    }
-    # "default":dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
+    'default': dj_database_url.config(default='postgresql://test1_x4ce_user:gZqEsPihU6E92Bu0VNpxu2Cc0XGmep66@dpg-crjvrd5ds78s73efln20-a/test1_x4ce')
 }
-database_url=os.environ.get("DATABASE_URL")
-DATABASES["default"]=dj_database_url.parse(database_url)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -141,3 +134,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ]
+}
+
+if not DEBUG:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# Security settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
