@@ -1,10 +1,10 @@
 """
-WSGI config for project project.
+WSGI config for render_deploy render_deploy.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
+https://docs.djangorender_deploy.com/en/5.1/howto/deployment/wsgi/
 """
 
 import os
