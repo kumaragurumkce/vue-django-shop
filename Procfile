@@ -1,1 +1,1 @@
-web: gunicorn render_deploy.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn railwaydeploy.wsgi:application --bind 0.0.0.0:$PORT
