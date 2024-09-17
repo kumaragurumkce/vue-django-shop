@@ -1,20 +1,13 @@
 from django.shortcuts import render, redirect
-from django.db import DatabaseError
-from .models import Name
+from django.http import HttpResponse
 
-def name_list(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        if name:
-            try:
-                Name.objects.create(name=name)
-            except DatabaseError:
-                return render(request, 'myapp/name_list.html', {'error': 'Database error occurred while saving the name.'})
-        return redirect('name_list')
+from .models import Member
 
-    try:
-        names = Name.objects.all()
-    except DatabaseError:
-        return render(request, 'myapp/name_list.html', {'error': 'Database error occurred while fetching names.'})
-    
-    return render(request, 'myapp/name_list.html', {'names': names})
+def index(request):
+    members = Member.objects.all()
+    member_list_html = [f"<li>{member.name}</li>" for member in members]
+    return HttpResponse(f"<ul>{''.join(member_list_html)}</ul>")
+
+def add_member(request, member_name):
+    Member.objects.create(name=member_name)
+    return redirect('index')
