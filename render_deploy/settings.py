@@ -70,10 +70,19 @@ WSGI_APPLICATION = 'render_deploy.wsgi.application'
 # Database
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test1_x4ce',           # Provided by Render
+        'USER': 'test1_x4ce_user',           # Provided by Render
+        'PASSWORD': 'gZqEsPihU6E92Bu0VNpxu2Cc0XGmep66',   # Provided by Render
+        'HOST': 'dpg-crjvrd5ds78s73efln20-a',           # Provided by Render
+        'PORT': '5432',           # Provided by Render (usually 5432 for PostgreSQL)
     }
+
 }
 
 
