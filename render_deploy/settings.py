@@ -81,8 +81,15 @@ WSGI_APPLICATION = 'render_deploy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'test1_x4ce',
+        'USER':'test1_x4ce_user',
+        'PASSWORD':'gZqEsPihU6E92Bu0VNpxu2Cc0XGmep66',
+        'HOST':'vue-django-shop-4.onrender.com',
+        'PORT':'5432'
+        
+        
     }
+    
 }
 database_url = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse(database_url)
