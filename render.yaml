@@ -4,4 +4,4 @@ services:
     env: python    
     plan: free    
     buildCommand: "pip install -r requirements.txt"    
-    startCommand: "gunicorn project.wsgi --log-file -"
+    startCommand: "gunicorn render_deploy.wsgi --log-file -"
