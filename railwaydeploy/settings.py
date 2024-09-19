@@ -15,16 +15,17 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_URL="postgresql://postgres:yqazwFWcbppFpnBnHXtnEzFHCsFcjVNY@junction.proxy.rlwy.net:52632/railway"
+# DATABASE_URL="postgresql://postgres:yqazwFWcbppFpnBnHXtnEzFHCsFcjVNY@junction.proxy.rlwy.net:52632/railway"
 
 # SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 # ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
-ALLOWED_HOSTS=[]
+
 SECRET_KEY = 'django-insecure-go-43ere!3z19tg57xp8w8a&p-=(+u_5u)$hv_w_pu!&gx55tc'
 DEBUG = True
 # ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'railwaydeploy.urls'
@@ -68,13 +71,18 @@ WSGI_APPLICATION = 'railwaydeploy.wsgi.application'
 
 
 # Database
-
+                                                          
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
-        'default': dj_database_url.config(default=DATABASE_URL,conn_max_age=1800),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get('railway'),
+        # 'USER': os.environ.get('postgres'),
+        # 'PASSWORD': os.environ.get('WhtsbPFpUpmQkrAuybUzQoCpuRwEojKp'),
+        # 'HOST': os.environ.get('postgres.railway.internal'),
+        # 'PORT': os.environ.get('5432'),
 }
 
 
@@ -115,7 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
