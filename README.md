@@ -1,2 +1,2 @@
-# evoting_app
-Learn how to build a secure voting platform with Django.
+# DRF_Tutorial
+Building a restful api for ecommerce web application, this is the source code for the 1st episode.
